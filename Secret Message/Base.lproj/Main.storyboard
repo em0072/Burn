@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="xO1-ba-5Lp">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Image View Controller-->
+        <scene sceneID="8qX-fb-1EK">
+            <objects>
+                <viewController id="Mli-to-Nwc" customClass="ImageViewController" customModule="Burn" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BFj-eK-axg"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mhv-aJ-uHE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="to6-DA-iwt">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="WjV-Vi-5bC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="txj-IU-7fC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1277" y="-25"/>
+        </scene>
+        <!--Menu Controller-->
+        <scene sceneID="mTX-K5-BgW">
+            <objects>
+                <viewController id="v5L-7Q-48j" customClass="MenuController" customModule="Burn" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xI4-5E-h8n"/>
+                        <viewControllerLayoutGuide type="bottom" id="gX3-Hs-kLa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iRk-nK-Mo0">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <segue destination="Eii-3W-XAC" kind="unwind" identifier="closeMenu" unwindAction="unwindToMainViewController:" id="Gqw-9j-R8Y"/>
+                        <segue destination="f5x-8M-GDr" kind="modal" identifier="showEditFriends" id="NNe-Bk-V2a"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="75K-bk-1Hf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Eii-3W-XAC" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1277" y="-1547"/>
+        </scene>
+        <!--Inbox View Controller-->
+        <scene sceneID="t7w-x1-zlB">
+            <objects>
+                <viewController id="tg8-70-lfZ" customClass="InboxViewController" customModule="Burn" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PS6-s6-Mye"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wz0-MW-JGe"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TGy-d6-LfP">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="O0r-qD-FRS">
+                        <barButtonItem key="leftBarButtonItem" image="BurgerIcon" id="juM-in-wPQ">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="v5L-7Q-48j" kind="modal" identifier="showMenu" id="cXo-2R-5tS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="cMD-Kx-UiR" kind="push" identifier="showLoginAnimated" id="nyS-X0-PuT"/>
+                        <segue destination="cMD-Kx-UiR" kind="push" identifier="showLogin" animates="NO" id="QFJ-fT-yTH"/>
+                        <segue destination="Mli-to-Nwc" kind="modal" identifier="showImage" id="XMI-aI-fxW"/>
+                        <segue destination="WFG-2q-1gb" kind="push" identifier="showCamera" id="4Ha-AW-rfz"/>
+                        <segue destination="WFG-2q-1gb" kind="push" identifier="showLibrary" id="825-TY-QkI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eEK-5J-MCN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="719" y="-848"/>
+        </scene>
+        <!--Edit Friends-->
+        <scene sceneID="2Ka-wb-7Gn">
+            <objects>
+                <viewController id="f5x-8M-GDr" customClass="EditFriendsViewController" customModule="Burn" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="sLV-rM-p8v"/>
+                        <viewControllerLayoutGuide type="bottom" id="x7B-u6-4Ge"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cgM-GT-iZn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Edit Friends" id="WPY-y4-IZW"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eN0-PZ-Lrk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1756" y="-1547"/>
+        </scene>
+        <!--Login Controller-->
+        <scene sceneID="sKc-zQ-dU1">
+            <objects>
+                <viewController storyboardIdentifier="loginViewController" id="cMD-Kx-UiR" customClass="LoginController" customModule="Burn" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fe4-6L-jhk"/>
+                        <viewControllerLayoutGuide type="bottom" id="G8g-vl-YiR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="41G-sT-xiG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="y4d-iz-iMS"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <segue destination="q25-Y5-zMJ" kind="push" identifier="showSignup" id="n4M-SS-glY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FVt-IM-ht4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1277" y="-880"/>
+        </scene>
+        <!--Choose Recepients-->
+        <scene sceneID="EGX-Xv-N19">
+            <objects>
+                <viewController id="WFG-2q-1gb" customClass="CameraViewController" customModule="Burn" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vHO-3y-GOQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="5F2-m4-AwS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="kTb-t4-Xve">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Choose Recepients" id="MRg-5D-2W2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jD2-C0-MQp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="719" y="-25"/>
+        </scene>
+        <!--Sing Up Controller-->
+        <scene sceneID="RW3-gy-iWm">
+            <objects>
+                <viewController storyboardIdentifier="SignUp" id="q25-Y5-zMJ" customClass="SingUpController" customModule="Burn" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4If-Hf-WDD"/>
+                        <viewControllerLayoutGuide type="bottom" id="0SF-ly-qlp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sP6-Gs-f00">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Roc-Ec-NwJ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kch-Ov-ZXb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1756" y="-880"/>
+        </scene>
+        <!--Inbox-->
+        <scene sceneID="0so-LU-23c">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xO1-ba-5Lp" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Inbox" image="folder_L" selectedImage="folder_F" id="T3N-Vo-Mbm"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mU2-tK-iVv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="tg8-70-lfZ" kind="relationship" relationship="rootViewController" id="TFV-Fv-3LX"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DeZ-X7-Cdu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="237" y="-848"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="BurgerIcon" width="27" height="22"/>
+        <image name="folder_F" width="32" height="24"/>
+        <image name="folder_L" width="32" height="32"/>
+    </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="4Ha-AW-rfz"/>
+        <segue reference="nyS-X0-PuT"/>
+    </inferredMetricsTieBreakers>
+</document>

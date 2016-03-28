@@ -15,6 +15,8 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
     
     
 //    var friendsArray = NSArray()
+    
+    //MARK: View Methods
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -39,6 +41,8 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         super.viewDidLoad()
     }
     
+    
+    //MARK: TableView Delegates
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return friendsArray.count
     }
@@ -50,7 +54,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         return cell
     }
     
-    
+    // MARK: Segue Methodes
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showAddFriends" {
             let vc = segue.destinationViewController as! EditFriendsViewController
@@ -58,32 +62,7 @@ class FriendsViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    @IBAction func reload(sender: AnyObject) {
-        backendless.userService.logout(
-            { ( user : AnyObject!) -> () in
-                print("User logged out.")
-                self.performSegueWithIdentifier("showLoginAnimated", sender: nil)
-            },
-            error: { ( error : Fault!) -> () in
-                print("Server reported an error: \(error)")
-                let title = NSLocalizedString("Oh NO!", comment: "account success note title")
-                let message = NSLocalizedString("There is a problem with loginOut!/nCheck your internet connection and try again!", comment: "account success message body")
-                let cancelButtonTitle = NSLocalizedString("OK", comment: "OK")
-                
-                let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-                let cancelAction = UIAlertAction(title: cancelButtonTitle, style: .Cancel, handler: { (action) in
-                        self.navigationController?.popViewControllerAnimated(true)
-                })
-                alert.addAction(cancelAction)
-                self.presentViewController(alert, animated: true, completion: {
-                })
-        })
-    }
+    
 
 }
 

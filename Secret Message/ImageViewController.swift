@@ -21,23 +21,20 @@ class ImageViewController: UIViewController, UINavigationControllerDelegate {
         downloadImage()
         let senderName = message.senderName
         print("This is recepients for this message \(message.recepients![0].name)")
-//        self.navigationItem.title = "From: \(senderName!)"
+        self.navigationItem.title = "From: \(senderName!)"
         
 
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-//        self.navigationController?.navigationBar.hidden = true
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(true)
-//        self.navigationController?.navigationBar.hidden = true
     }
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(true)
-//        self.navigationController?.navigationBar.hidden = false
     }
     
     

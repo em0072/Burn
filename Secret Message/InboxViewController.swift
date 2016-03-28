@@ -122,6 +122,7 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! InboxCell
         cell.setCell(messageArray[indexPath.row])
         
+        
 //        let message = messageArray[indexPath.row]
 //        cell.textLabel?.text = message.senderName!
 //        
@@ -203,7 +204,6 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         // your destination file url
         if let fileName = fileUrl.lastPathComponent {
-            // your destination file url
             let destinationUrl = documentsUrl.URLByAppendingPathComponent(fileName)
             
             if destinationUrl.path != nil && NSFileManager().fileExistsAtPath(destinationUrl.path!) {
@@ -343,7 +343,6 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             dispatch_async(dispatch_get_main_queue()) {
                 
-//                self.progressDownloadIndicator.hidden = true
             }
         }
     }
@@ -355,10 +354,8 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
         let progress = (CGFloat(totalBytesWritten) / CGFloat(totalBytesExpectedToWrite)) * 100
         
             print(progress)
-//            ARSLineProgress.showWithProgress(initialValue: 100)
             
             ARSLineProgress.updateWithProgress(progress)
-    //            self.progressDownloadIndicator.progress = progress
         }
     }
 

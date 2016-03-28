@@ -16,20 +16,7 @@ class Messages : NSObject {
     var senderName: String?
     var recepients: [BackendlessUser]?
     var senderEmail: String?
-//    var objectId: String?
-//    var ownerId: String?
     var created: NSDate?
-//    var updated: NSDate?
-
-//    init (file: BackendlessFile, fileType: String, recepients: [BackendlessUser], senderId: String, senderName: String) {
-//        super.init()
-//        self.file = file
-//        self.fileType = fileType
-//        self.recepients = recepients
-//        self.senderId = senderId
-//        self.senderName = senderName
-//    }
-    
     
 
 

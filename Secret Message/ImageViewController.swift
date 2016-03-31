@@ -15,14 +15,19 @@ import CoreMedia
 
 class ImageViewController: UIViewController, UINavigationControllerDelegate {
     
+    //MARK: Stored Properties
+    
     var fileType = String()
     var imageView = UIImageView()
     var videoURL = NSURL()
     
     var moviePlayer = AVPlayerViewController()
     var message = Messages()
+    var friendsArray = [BackendlessUser]()
     
     var recipientList = [BackendlessUser]()
+    
+    //MARK: View Methodes
     
     override func viewDidLoad() {
             super.viewDidLoad()
@@ -53,7 +58,7 @@ class ImageViewController: UIViewController, UINavigationControllerDelegate {
         super.viewWillDisappear(true)
     }
     
-    
+    //MARK: Helper Methods
     
     func videoSnapshot(vidURL: NSURL) -> UIImage? {
         let size = Size(x: 162, y: 323, width: 90, height: 90)
@@ -94,6 +99,17 @@ class ImageViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     func report () {
+        
+        let dataQuery = BackendlessDataQuery()
+        dataQuery.whereClause = "Users[userRelations].objectId = \'\(activeUser.objectId)\'"
+        
+        var error: Fault?
+        let bc = backendless.data.of(BackendlessUser.ofClass()).find(dataQuery, fault: &error)
+        if error == nil {
+            print("Friends have been found: \(bc.data.count)")
+            self.friendsArray = bc.data as! [BackendlessUser]
+        }
+        
         let alertController = DOAlertController(title: "Report", message: "Do you want to report or block this user?", preferredStyle: .ActionSheet)
         // Create the action.
         let ReportAction = DOAlertAction(title: "Report", style: .Default) { action in
@@ -184,13 +200,31 @@ class ImageViewController: UIViewController, UINavigationControllerDelegate {
             print("Search Results \(serchResult)")
             if serchResult.count > 0 {
                 blockingSender = serchResult[0]
+                
+                if self.isFriend(blockingSender) {
+                    for user in friendsArray {
+                        if blockingSender.email == user.email {
+                           let index = friendsArray.indexOf(user)!
+                            friendsArray.removeAtIndex(index)
+                            activeUser.updateProperties(["userRelations":friendsArray])
+                            backendless.userService.update(activeUser, response: { (updatedUser) in
+                                print("\(activeUser.name) add \(blockingSender.name) to block list")
+                                self.reportAction()
+                            }) { (error) in
+                                print(error.description)
+                            }
+
+                            
+                        }
+                    }
+                }
+                print("This is user that needs block - \(blockingSender.name)")
                 var blockList = loadBlockList()
                 blockList.append(blockingSender)
                 activeUser.updateProperties(["blockList":blockList])
                 backendless.userService.update(activeUser, response: { (updatedUser) in
-                    
+                    print("\(activeUser.name) add \(blockingSender.name) to block list")
                     self.reportAction()
-                    
                 }) { (error) in
                     print(error.description)
                 }
@@ -200,6 +234,18 @@ class ImageViewController: UIViewController, UINavigationControllerDelegate {
         }
     }
     
+    
+    func isFriend(user: BackendlessUser) -> Bool {
+        for friend in friendsArray {
+            if friend.objectId == user.objectId {
+                return true
+            }
+        }
+        return false
+    }
+
+    
+    
     func loadBlockList () -> [BackendlessUser] {
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = "Users[blockList].objectId = \'\(activeUser.objectId)\'"
@@ -207,9 +253,13 @@ class ImageViewController: UIViewController, UINavigationControllerDelegate {
         var error: Fault?
         let bc = backendless.data.of(BackendlessUser.ofClass()).find(dataQuery, fault: &error)
         if error == nil {
-            print("Contacts have been found: \(bc.data.count)")
+            print("Contacts in BL have been found: \(bc.data.count)")
             let blockArray = bc.data as! [BackendlessUser]
-            return blockArray
+            if blockArray.count > 0 {
+                return blockArray
+            } else {
+                return []
+            }
         }
         else {
             print("Server reported an error: \(error)")

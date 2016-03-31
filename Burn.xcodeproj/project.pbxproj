@@ -28,7 +28,6 @@
 		75658DFB1C9696D5002F0477 /* SingUpController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75658DFA1C9696D5002F0477 /* SingUpController.swift */; };
 		75658DFF1C971311002F0477 /* EditFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75658DFE1C971311002F0477 /* EditFriendsViewController.swift */; };
 		757E7ABE1C7EF3EF00A97C21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757E7ABD1C7EF3EF00A97C21 /* AppDelegate.swift */; };
-		757E7AC01C7EF3EF00A97C21 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 757E7ABF1C7EF3EF00A97C21 /* FriendsViewController.swift */; };
 		757E7AC31C7EF3EF00A97C21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 757E7AC11C7EF3EF00A97C21 /* Main.storyboard */; };
 		757E7AC51C7EF3EF00A97C21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 757E7AC41C7EF3EF00A97C21 /* Assets.xcassets */; };
 		757E7AC81C7EF3EF00A97C21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 757E7AC61C7EF3EF00A97C21 /* LaunchScreen.storyboard */; };
@@ -263,7 +262,6 @@
 		75658DFE1C971311002F0477 /* EditFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditFriendsViewController.swift; sourceTree = "<group>"; };
 		757E7ABA1C7EF3EF00A97C21 /* Burn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Burn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		757E7ABD1C7EF3EF00A97C21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		757E7ABF1C7EF3EF00A97C21 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		757E7AC21C7EF3EF00A97C21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		757E7AC41C7EF3EF00A97C21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		757E7AC71C7EF3EF00A97C21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -725,7 +723,6 @@
 			children = (
 				75D8FD961C9AD60F00E6B70C /* ImageViewController.swift */,
 				75658DE11C95BF22002F0477 /* InboxViewController.swift */,
-				757E7ABF1C7EF3EF00A97C21 /* FriendsViewController.swift */,
 				75658DFE1C971311002F0477 /* EditFriendsViewController.swift */,
 				75563A0E1C988573007CF87D /* CameraViewController.swift */,
 				75658DF81C9696C0002F0477 /* LoginController.swift */,
@@ -956,7 +953,6 @@
 				75D8FDB71C9DB32E00E6B70C /* ElasticTransition.swift in Sources */,
 				75E63D321CA159B500CD99F4 /* DOAlertController.swift in Sources */,
 				75EBB4301CA32436000F16F5 /* FlowingMenuTransitionStatus.swift in Sources */,
-				757E7AC01C7EF3EF00A97C21 /* FriendsViewController.swift in Sources */,
 				75658DF91C9696C0002F0477 /* LoginController.swift in Sources */,
 				75E63D381CA1836300CD99F4 /* InboxView.swift in Sources */,
 				75658DFB1C9696D5002F0477 /* SingUpController.swift in Sources */,

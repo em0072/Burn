@@ -26,6 +26,8 @@ class SingUpController: UIViewController, UITextFieldDelegate, ElasticMenuTransi
     var signupButton = UIButton()
     var goBackLabel = UILabel()
     var loginButton = UIButton()
+    var termsLabel = UILabel()
+    var termsButton = UIButton()
     
 //    let progressViewManager = MediumProgressViewManager.sharedInstance
     var transition = ElasticTransition()
@@ -72,6 +74,10 @@ class SingUpController: UIViewController, UITextFieldDelegate, ElasticMenuTransi
         transition.edge = .Right
         transition.startingPoint = sender.center
         self.navigationController?.popViewControllerAnimated(true)
+    }
+    
+    func showTerms(sender: AnyObject) {
+        performSegueWithIdentifier("showTerms", sender: self)
     }
 
     

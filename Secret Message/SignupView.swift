@@ -123,6 +123,26 @@ extension SingUpController {
         signupButton.titleLabel?.adjustsFontSizeToFitWidth = true
         view.addSubview(signupButton)
         
+        layer = Size(x: 65, y: 489, width: 283, height: 16)
+        termsLabel = UILabel(frame: CGRect(x: layer.x, y: layer.y, width: layer.width, height: layer.height))
+        termsLabel.text = "By creating an account you agree with"
+        termsLabel.textColor = UIColor.whiteColor()
+        termsLabel.font = UIFont(name: "Lato-Thin", size: 12)
+        termsLabel.textAlignment = .Center
+        termsLabel.adjustsFontSizeToFitWidth = true
+        view.addSubview(termsLabel)
+        
+        layer = Size(x: 106, y: 504, width: 201, height: 15)
+        termsButton = UIButton(frame: CGRect(x: layer.x, y: layer.y, width: layer.width, height: layer.height))
+        termsButton.tintColor = UIColor.whiteColor()
+        termsButton.setTitle("terms of  End ­User License Agreement", forState: .Normal)
+        termsButton.setTitleColor(UIColor(red: 204/255, green: 204/255, blue: 204/255, alpha: 1), forState: .Highlighted)
+        termsButton.titleLabel?.font = UIFont(name: "Lato-Regular", size: 12)
+        termsButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        termsButton.addTarget(self, action: #selector(SingUpController.showTerms(_:)), forControlEvents: .TouchUpInside)
+        view.addSubview(termsButton)
+
+        
         
         
         

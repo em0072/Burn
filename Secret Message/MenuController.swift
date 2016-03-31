@@ -14,6 +14,8 @@ class MenuController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var tableView = UITableView()
     var layer = Size(x: 0, y: 20, width: 276, height: 44)
     var friendsArray: [BackendlessUser] = []
+    var blackList: [BackendlessUser] = []
+    var wasInFriends: [BackendlessUser] = []
     var noFriendsLabel = UILabel()
     
     override func viewDidLoad() {
@@ -26,8 +28,10 @@ class MenuController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(true)
+        
+        progressViewManager.show()
         
         let dataQuery = BackendlessDataQuery()
         dataQuery.whereClause = "Users[userRelations].objectId = \'\(activeUser.objectId)\'"
@@ -35,23 +39,34 @@ class MenuController: UIViewController, UITableViewDelegate, UITableViewDataSour
         var error: Fault?
         let bc = backendless.data.of(BackendlessUser.ofClass()).find(dataQuery, fault: &error)
         if error == nil {
-            print("Contacts have been found: \(bc.data.count)")
+            print("Friends have been found: \(bc.data.count)")
             self.friendsArray = bc.data as! [BackendlessUser]
             
-            
-            if self.friendsArray.count == 0 {
-                self.noFriendsLabel.text = "You have no Friends.\nPress 'Edit Friends' to add some"
-            } else {
-                self.noFriendsLabel.text = ""
+            dataQuery.whereClause = "Users[blockList].objectId = \'\(activeUser.objectId)\'"
+            var error: Fault?
+            let bcTwo = backendless.data.of(BackendlessUser.ofClass()).find(dataQuery, fault: &error)
+            if error == nil {
+                print("Contacts in BL have been found: \(bc.data.count)")
+                self.blackList = bcTwo.data as! [BackendlessUser]
+                
+                for blockedUser in self.blackList {
+                    for user in friendsArray {
+                        if blockedUser.email == user.email {
+                            let index = friendsArray.indexOf(user)!
+                            friendsArray.removeAtIndex(index)
+                            wasInFriends.append(user)
+                        }
+                    }
+                    
+                }
+                progressViewManager.hide()
+                self.tableView.reloadData()
             }
-            
-            self.tableView.reloadData()
         }
         else {
             print("Server reported an error: \(error)")
         }
     }
-
     
     
     // MARK: TableView Delegate Methods
@@ -75,6 +90,8 @@ class MenuController: UIViewController, UITableViewDelegate, UITableViewDataSour
         if segue.identifier == "showEditFriends" {
             let vc = segue.destinationViewController as! EditFriendsViewController
             vc.friendArray = self.friendsArray
+            vc.blockList = self.blackList
+            vc.wasInFriends = self.wasInFriends
         }
     }
     

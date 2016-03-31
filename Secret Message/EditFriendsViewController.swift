@@ -18,6 +18,9 @@ class EditFriendsViewController: UIViewController, UITableViewDataSource, UITabl
     
     var userArray = [BackendlessUser]()
     var friendArray = [BackendlessUser]()
+    var blockList = [BackendlessUser]()
+    var wasInFriends = [BackendlessUser]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,8 +43,11 @@ class EditFriendsViewController: UIViewController, UITableViewDataSource, UITabl
         let friend = userArray[indexPath.row]
         cell.setCell(friend)
         
-        if self.isFriend(friend) {
-//            cell.accessoryType = .Checkmark
+        if self.isBlocked(friend) {
+            cell.oval.image = UIImage(named: "userIsBlocked")!
+            cell.checked = false
+        } else  if self.isFriend(friend) {
+            //            cell.accessoryType = .Checkmark
             cell.oval.image = UIImage(named: "checkIcon")!
             cell.checked = true
         } else {
@@ -50,6 +56,9 @@ class EditFriendsViewController: UIViewController, UITableViewDataSource, UITabl
             cell.checked = false
 //            cell.accessoryType = .None
         }
+        
+        
+        
         
         return cell
     }
@@ -62,7 +71,41 @@ class EditFriendsViewController: UIViewController, UITableViewDataSource, UITabl
         let user = userArray[indexPath.row]
         print(friendArray)
         
-        if isFriend(user) {
+        
+        if isBlocked(user) {
+            let alertController = DOAlertController(title: "User is blocked", message: "You block this user in past and he/she is in block List. Do you want to unblock this user?", preferredStyle: .ActionSheet)
+            // Create the action.
+            let unBlockAction = DOAlertAction(title: "Unblock user", style: .Destructive) { action in
+                NSLog("BlockAction action occured.")
+                self.unblockUser(user)
+                
+                for person in self.wasInFriends {
+                    if person.email == user.email {
+                        cell.oval.image = UIImage(named: "checkIcon")!
+                        cell.checked = true
+                    } else {
+                        cell.oval.image = UIImage(named: "plusIcon")!
+                        cell.checked = false
+                    }
+                }
+
+            }
+            let CancelAction = DOAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            alertController.titleFont = UIFont(name: "Lato-Regular", size: 18)
+            alertController.titleTextColor = UIColor.blackColor()
+            alertController.messageFont = UIFont(name: "Lato-Light", size: 16)
+            alertController.messageTextColor = UIColor.blackColor()
+            alertController.buttonFont[.Default] = UIFont(name: "Lato-Regular", size: 16)
+            alertController.buttonTextColor[.Default] = UIColor.whiteColor()
+            
+            // Add the action.
+            alertController.addAction(unBlockAction)
+            alertController.addAction(CancelAction)
+            
+            // Show alert
+            presentViewController(alertController, animated: true, completion: nil)
+        
+        } else if isFriend(user) {
             cell.oval.image = UIImage(named: "plusIcon")!
             var index = Int()
             for friend in friendArray {
@@ -111,6 +154,25 @@ class EditFriendsViewController: UIViewController, UITableViewDataSource, UITabl
 
     
     //MARK: Helper methods
+    func unblockUser (user: BackendlessUser) {
+        print("unblock User - \(user.name)")
+        
+        for blockedUser in blockList {
+            if blockedUser.email == user.email {
+              let index = blockList.indexOf(blockedUser)!
+                blockList.removeAtIndex(index)
+            }
+        }
+        
+        activeUser.updateProperties(["blockList":blockList])
+        backendless.userService.update(activeUser, response: { (updatedUser) in
+            print("\(activeUser.name) delete \(user.name) from block list")
+        }) { (error) in
+            print(error.description)
+        }
+
+    }
+    
     
     func isFriend(user: BackendlessUser) -> Bool {
         for friend in friendArray {
@@ -120,6 +182,16 @@ class EditFriendsViewController: UIViewController, UITableViewDataSource, UITabl
         }
         return false
     }
+    
+    func isBlocked(user: BackendlessUser) -> Bool {
+        for friend in blockList {
+            if friend.email == user.email {
+                return true
+            }
+        }
+        return false
+    }
+
 
     func fecthAllContacts() {
         let dataStore = backendless.data.of(BackendlessUser.ofClass())

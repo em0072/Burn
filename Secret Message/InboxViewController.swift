@@ -31,11 +31,12 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
     let flowingMenuTransitionManager = FlowingMenuTransitionManager()
     let refreshControl = SpringIndicator.Refresher()
     var noMessageLabel = UILabel()
+//    let videoURL = NSURL()
     
     
     //MARK: Stored Properties
     var messageToPass = Messages()
-    var moviePlayer = AVPlayerViewController()
+   
     let logInTransition = ElasticTransition()
     var menu = UIViewController()
     
@@ -221,19 +222,20 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     func downloadVideo(videoImageUrl:String) {
         
-        let videoUrl = NSURL(string: videoImageUrl)
+        videoUrl = NSURL(string: videoImageUrl)!
         
             let session = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration(), delegate: self, delegateQueue: nil)
-            let downloadTask = session.downloadTaskWithURL(videoUrl!)
+            let downloadTask = session.downloadTaskWithURL(videoUrl)
             downloadTask.resume()
         ARSLineProgress.showWithProgress(initialValue: 0) {
             print("Loading Complete")
-            self.deleteVideoFromServer()
-            let player = AVPlayer(URL: self.videoUrl)
-            self.moviePlayer.player = player
-            self.presentViewController(self.moviePlayer, animated: true, completion: {
-                self.moviePlayer.player!.play()
-            })
+            self.performSegueWithIdentifier("showImage", sender: self)
+//            self.deleteVideoFromServer()
+//            let player = AVPlayer(URL: self.videoUrl)
+//            self.moviePlayer.player = player
+//            self.presentViewController(self.moviePlayer, animated: true, completion: {
+//                self.moviePlayer.player!.play()
+//            })
 
         }
         
@@ -377,6 +379,7 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
         } else if segue.identifier == "showImage" {
             let vc = segue.destinationViewController as! ImageViewController
             vc.message = messageToPass
+            vc.videoURL = videoUrl
         } else if segue.identifier == "showCamera" {
             let vc = segue.destinationViewController as! CameraViewController
             vc.imagePicker.sourceType = .Camera

@@ -7,22 +7,36 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
+import CoreMedia
+
 
 
 class ImageViewController: UIViewController, UINavigationControllerDelegate {
     
+    var fileType = String()
     var imageView = UIImageView()
-
+    var videoURL = NSURL()
+    
+    var moviePlayer = AVPlayerViewController()
     var message = Messages()
     
     override func viewDidLoad() {
             super.viewDidLoad()
-        layoutView()
-        downloadImage()
-        let senderName = message.senderName
-        print("This is recepients for this message \(message.recepients![0].name)")
-        self.navigationItem.title = "From: \(senderName!)"
+         layoutView()
         
+        if message.fileType == "image" {
+            downloadImage()
+            let senderName = message.senderName
+            print("This is recepients for this message \(message.recepients![0].name)")
+            self.navigationItem.title = "From: \(senderName!)"
+        } else {
+            
+            
+                imageView.image = videoSnapshot(videoURL)
+            
+        }
 
     }
     
@@ -35,6 +49,46 @@ class ImageViewController: UIViewController, UINavigationControllerDelegate {
     }
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(true)
+    }
+    
+    
+    
+    func videoSnapshot(vidURL: NSURL) -> UIImage? {
+        let size = Size(x: 162, y: 323, width: 90, height: 90)
+        
+        let playButton = UIButton(frame: CGRect(x: size.x, y: size.y, width: size.width, height: size.height))
+        playButton.setImage(UIImage(named: "playButton")!, forState: .Normal)
+        playButton.setImage(UIImage(named: "playButtonPressed")!, forState: .Highlighted)
+        playButton.addTarget(self, action: #selector(ImageViewController.playVideo), forControlEvents: .TouchUpInside)
+        view.addSubview(playButton)
+
+        
+        
+        
+        let asset = AVURLAsset(URL: vidURL)
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        
+        let timestamp = CMTime(seconds: 1, preferredTimescale: 60)
+        
+        do {
+            let imageRef = try generator.copyCGImageAtTime(timestamp, actualTime: nil)
+            return UIImage(CGImage: imageRef)
+        }
+        catch let error as NSError
+        {
+            print("Image generation failed with error \(error)")
+            return nil
+        }
+    }
+
+    func playVideo() {
+        print("Start to play video")
+        let player = AVPlayer(URL: videoURL)
+        moviePlayer.player = player
+        presentViewController(self.moviePlayer, animated: true, completion: {
+                self.moviePlayer.player!.play()
+        })
     }
     
     

@@ -129,6 +129,14 @@ class EditFriendsViewController: UIViewController, UITableViewDataSource, UITabl
                 let contacts = result.getCurrentPage()
                 self.userArray = contacts as! [BackendlessUser]
                 
+                for user in self.userArray {
+                    if user.name == "admin" {
+                        if let index = self.userArray.indexOf(user) {
+                            self.userArray.removeAtIndex(index)
+                        }
+                    }
+                }
+                
                 
                 
                 
@@ -172,6 +180,16 @@ class EditFriendsViewController: UIViewController, UITableViewDataSource, UITabl
         if error == nil {
             print("Contacts have been found: \(bc.data)")
             userArray = bc.getCurrentPage() as! [BackendlessUser]
+            
+            
+            for user in self.userArray {
+                if user.name == "admin" {
+                    if let index = self.userArray.indexOf(user) {
+                        self.userArray.removeAtIndex(index)
+                    }
+                }
+            }
+            
             self.tableView.reloadData()
         }
         else {

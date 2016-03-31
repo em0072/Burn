@@ -221,6 +221,7 @@ class CameraViewController: UIViewController, UITableViewDataSource, UITableView
                 fileName = "video\( NSDate().timeIntervalSince1970).mov"
                 fileType = "video"
             }
+            
         backendless.fileService.upload(fileName, content: data, response: { (file) in
             let message = Messages()
             message.file = file

@@ -175,6 +175,34 @@ class CameraViewController: UIViewController, UITableViewDataSource, UITableView
             Utility.simpleAlert(title, message: message, sender: self)
             
         } else {
+            var blockList = [BackendlessUser]()
+            
+            
+            for user in sendList {
+                let dataQuery = BackendlessDataQuery()
+                dataQuery.whereClause = "Users[blockList].objectId = \'\(user.objectId)\'"
+                
+                var error: Fault?
+                let bc = backendless.data.of(BackendlessUser.ofClass()).find(dataQuery, fault: &error)
+                if error == nil {
+                    print("Contacts have been found: \(bc.data.count)")
+                    blockList = bc.data as! [BackendlessUser]
+                    
+                    for blockerUser in blockList {
+                        if blockerUser.email == activeUser.email {
+                            let index = sendList.indexOf(user)
+                            sendList.removeAtIndex(index!)
+                            print("\(user.name) add you to block List")
+                            
+                            Utility.simpleAlert("You are blocked", message: "User \(user.name) add you to block list. You can't send messages to this user!", sender: self)
+                        }
+                    }
+                }
+                else {
+                    print("Server reported an error: \(error)")
+                }
+            }
+            
             if sendList != [] {
                 ARSLineProgress.showWithProgress(initialValue: 0)
                 self.uploadMessage()

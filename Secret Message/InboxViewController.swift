@@ -90,11 +90,12 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
             print("User \(activeUser.name) is logged in")
             //user is logged in and will be loaded on first call
             
-            if !(registerForNotifications) {
+//            if !(registerForNotifications) {
                 //Manage Notifications
+           
                 UIApplication.sharedApplication().registerForRemoteNotifications()
                 UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
-            }
+//            }
         }
 
         

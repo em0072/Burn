@@ -115,6 +115,7 @@ class LoginController: UIViewController, UITextFieldDelegate {
                 backendless.userService.setStayLoggedIn( true )
                 activeUser = backendless.userService.currentUser
                 progressViewManager.hide()
+                
 //                self.performSegueWithIdentifier("showInbox", sender: self)
                 self.navigationController?.popToRootViewControllerAnimated(true)
                 }, error: { (error) in

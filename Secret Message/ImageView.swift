@@ -26,7 +26,7 @@ extension ImageViewController {
         titleLabel.text = "From \(message.senderName!)"
         view.addSubview(titleLabel)
         
-        layer = Size(x: 0, y: 70, width: 414, height: 616)
+        layer = Size(x: 0, y: 70, width: 415, height: 617)
         imageView = UIImageView(frame: CGRect(x: layer.x, y: layer.y, width: layer.width, height: layer.height))
         imageView.contentMode = .ScaleAspectFit
         view.addSubview(imageView)
@@ -39,6 +39,14 @@ extension ImageViewController {
         cancelButton.setTitle("Burn", forState: .Normal)
         cancelButton.addTarget(self, action: #selector(ImageViewController.dismissView), forControlEvents: .TouchUpInside)
         view.addSubview(cancelButton)
+        
+        layer = Size(x: 374, y: 33, width: 25, height: 25)
+        let reportButton = UIButton(frame: CGRect(x: layer.x, y: layer.y, width: layer.width, height: layer.height))
+        reportButton.setImage(UIImage(named: "reportButton")!, forState: .Normal)
+        reportButton.setImage(UIImage(named: "reportButtonPressed")!, forState: .Highlighted)
+        reportButton.addTarget(self, action: #selector(ImageViewController.report), forControlEvents: .TouchUpInside)
+        view.addSubview(reportButton)
+
         
     }
     

@@ -48,6 +48,8 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         UIApplication.sharedApplication().applicationIconBadgeNumber = 0
 
+        registerForNotifications = NSUserDefaults.standardUserDefaults().boolForKey("registerForNotifications")
+        
         self.view.backgroundColor = UIColor(red: 65/255, green: 70/255, blue: 72/255, alpha: 1)
         layoutInboxView()
         
@@ -88,14 +90,15 @@ class InboxViewController: UIViewController, UITableViewDataSource, UITableViewD
             registerForNotifications = false
         } else {
             print("User \(activeUser.name) is logged in")
-            //user is logged in and will be loaded on first call
-            
-//            if !(registerForNotifications) {
-                //Manage Notifications
-           
-                UIApplication.sharedApplication().registerForRemoteNotifications()
-                UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
-//            }
+        }
+        
+        if registerForNotifications == false {
+            UIApplication.sharedApplication().registerForRemoteNotifications()
+            UIApplication.sharedApplication().registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Alert, .Badge, .Sound], categories: nil))
+            registerForNotifications = true
+            NSUserDefaults.standardUserDefaults().setBool(registerForNotifications, forKey: "registerForNotifications")
+        } else {
+            print("User already registered for notifications")
         }
 
         

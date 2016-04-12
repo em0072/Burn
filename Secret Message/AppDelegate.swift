@@ -58,7 +58,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         NSNotificationCenter.defaultCenter().postNotificationName("newMessage", object: nil)
         print("I have a notification")
-    }
+        UIApplication.sharedApplication().applicationIconBadgeNumber += 1
+     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
         print(error.description)

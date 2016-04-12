@@ -280,7 +280,7 @@ public extension SpringIndicator {
 // MARK: - Timer
 internal extension SpringIndicator {
     private func createStrokeTimer(timeInterval ti: NSTimeInterval, userInfo: AnyObject?, repeats yesOrNo: Bool) -> NSTimer {
-        return NSTimer(timeInterval: ti, target: self, selector: Selector("onStrokeTimer:"), userInfo: userInfo, repeats: yesOrNo)
+        return NSTimer(timeInterval: ti, target: self, selector: #selector(SpringIndicator.onStrokeTimer(_:)), userInfo: userInfo, repeats: yesOrNo)
     }
     
     private func setStrokeTimer(timer: NSTimer) {
